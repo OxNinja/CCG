@@ -1,0 +1,33 @@
+#!/bin/sh
+
+declare -a CATEGORIES=( web steg crypto )
+declare -a web=( xss ssti sqli )
+declare -a steg=( lsb hidden_text )
+declare -a crypto=( base64 hash )
+
+random_int() {
+    n=$(( $RANDOM % $1 ))
+    echo $n
+}
+
+get_random_category() {
+    cat_len=${#CATEGORIES[@]}
+    n=$(random_int $cat_len)
+    cat=${CATEGORIES[$n]}
+    echo $cat
+}
+
+get_random_sub_category() {
+    cat=$1
+    a="$cat[@]"
+    b=${!a}
+    IFS=' ' read -r -a subs <<< "$b"
+    subs_len=${#subs[@]}
+    n=$(random_int $subs_len)
+    sub_cat=${subs[$n]}
+    echo $sub_cat
+}
+
+a=$(get_random_category)
+b=$(get_random_sub_category $a)
+echo "Chall is about $b"
