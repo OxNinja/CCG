@@ -1,9 +1,40 @@
 #!/bin/sh
 
+OPTIND=1
+
+declare -r SEP="=============================="
+declare -r CONFIG_DIR="config"
+declare -r FLAG_FORMAT="$CONFIG_DIR/flag.txt"
+declare -r FLAG_STR="flag_here"
+declare -r DEFAULT_FLAG="flag{flag_here}"
+
 declare -a CATEGORIES=( web steg crypto )
 declare -a web=( xss ssti sqli )
 declare -a steg=( lsb hidden_text )
 declare -a crypto=( base64 hash )
+
+
+usage() {
+    echo -e "$SEP\nUsage:"
+    echo -e "\t$0 -h"
+    echo -e "\t$0 -f my_flag -r"
+    echo -e "\t$0 -d 1 -c sqli"
+    echo -e "\t$0 -d 3 -f my_Fl4g_h3r3! -c ssti"
+    echo "$SEP"
+    exit
+}
+
+show_help() {
+    echo -e "CCG: CTF Challenge Generator\n\tBy 0xNinja\n"
+    echo -e "$SEP\nOptions are:"
+    echo -e "\t-h: show this message"
+    echo -e "\t-d: manually set the challenge's difficulty"
+    echo -e "\t-f: manually set the challenge's flag"
+    echo -e "\t-c: manually set the challenge's category"
+    echo -e "\t-r: generate a random challenge"
+    echo "$SEP"
+    exit
+}
 
 random_int() {
     n=$(( $RANDOM % $1 ))
@@ -13,13 +44,13 @@ random_int() {
 get_random_category() {
     cat_len=${#CATEGORIES[@]}
     n=$(random_int $cat_len)
-    cat=${CATEGORIES[$n]}
-    echo $cat
+    category=${CATEGORIES[$n]}
+    echo $category
 }
 
 get_random_sub_category() {
-    cat=$1
-    a="$cat[@]"
+    category=$1
+    a="$category[@]"
     b=${!a}
     IFS=' ' read -r -a subs <<< "$b"
     subs_len=${#subs[@]}
@@ -28,6 +59,72 @@ get_random_sub_category() {
     echo $sub_cat
 }
 
-a=$(get_random_category)
-b=$(get_random_sub_category $a)
-echo "Chall is about $b"
+generate_flag() {
+    r=''
+    if [ ! $1 ]; then
+        length=16
+        r=$(hexdump -n $length -e '4/4 "%08x" 1 "\n"' /dev/random)
+    else
+        r="$1"
+    fi
+    flag=$(cat $FLAG_FORMAT)
+    flag=${flag/$FLAG_STR/$r}
+    echo $flag
+}
+
+create_challenge() {
+    difficulty=$1
+    
+    if [ $2 = $DEFAULT_FLAG ]; then
+        flag=$(generate_flag)
+    else
+        flag="$2"
+    fi
+
+    if [ $3 ]; then
+        category="$3"
+    else
+        c=$(get_random_category)
+        category=$(get_random_sub_category $c)
+    fi
+
+    echo -e "Challenge generated!"
+    echo -e "\tDifficulty: $difficulty"
+    echo -e "\tFlag: $flag"
+    echo -e "\tCategory: $category"
+    exit
+}
+
+
+# Main
+difficulty=2
+flag="$DEFAULT_FLAG"
+
+while getopts "hd:rf:c:" opt; do
+    case "$opt" in
+    h) # Help
+        show_help
+        ;;
+    d) # Difficulty
+        difficulty=${OPTARG}
+        (( difficulty == 1 || difficulty == 2 || difficulty == 3 )) || usage
+        ;;
+    f) # Input the challenge's flag
+        flag=${OPTARG}
+        flag=$(generate_flag $flag)
+        ;;
+    c) # Create random challenge with given category
+        category=${OPTARG}
+        create_challenge $difficulty $flag $category
+        ;;
+    r) # Create random challenge
+        create_challenge $difficulty $flag
+        ;;
+    *)
+        usage
+        ;;
+    esac
+done
+
+# No argument given
+show_help
