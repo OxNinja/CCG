@@ -1,0 +1,7 @@
+/build.sh
+/.token
+/build
+/dist
+/ccg_0xNinja*
+/tests
+/ccg/__pycache__
