@@ -1,7 +1,7 @@
 import setuptools
 
-PKG_NAME = "ccg-0xNinja"
-PKG_VERSION = "0.0.11"
+PKG_NAME = "ccg-0xNinjb"
+PKG_VERSION = "0.0.001"
 PKG_AUTHOR = "0xNinja"
 PKG_AUTHOR_EMAIL = "author@example.com"
 PKG_DESC = "CCG - CTF Challenge Generator"

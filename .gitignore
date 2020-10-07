@@ -2,6 +2,6 @@
 /.token
 /build
 /dist
-/ccg_0xNinja*
+/ccg_*
 /tests
 /ccg/__pycache__

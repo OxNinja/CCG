@@ -1,54 +1,51 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-import argparse, json
-
-
 """
 Global variables
 """
 
-CONFIG_DIR = 'config'
-CATEGORIES_FILE = CONFIG_DIR + '/categories.json'
-FLAG_FORMAT_FILE = CONFIG_DIR + '/flag.txt'
-CATEGORIES = {}
-TEMPLATE_DIR = 'templates'
-DESC = 'CCG - CTF Challenge Generator'
+OUTPUT_DIR='/tmp/ccg/'
+
+"""
+Challenge class:
+    Initialize challenge, set variables (flag, difficulty, category...) and generate challenge
+"""
+
+class Challenge:
 
 
-def main():
-    """First function to be called: programm's entrypoint
-
-    Creates challenges according to user's parsed arguments
     """
-
-    """ Initalize variables """
-    # Get categories from config file
-    with open(CATEGORIES_FILE) as f:
-        CATEGORIES = json.load(f)
-
-    """ CLI arguments """
-    # Create a parser for CLI arguments
-    p = argparse.ArgumentParser(description=DESC)
-    # Exclusive groups
-    g = p.add_mutually_exclusive_group()
-    g.add_argument('-c','--category',
-            help='set the challenge\'s category')
-    g.add_argument('-r','--random',action='store_true',
-            help='generate a challenge for a random category')
-    # CLI arguments
-    p.add_argument('-d','--difficulty',type=int,choices=[1,2,3],
-            help='set the challenge\'s difficulty')
-    p.add_argument('-f','--flag',
-            help='set the challenge\'s flag')
-    
-    # Parse the CLI arguments and store them
-    args = p.parse_args() 
-
-    """ Process the arguments """
-    #
-    print(args)
+    __init__(): initialize default values for challenge
+    """
+    def __init__(self,category=None,sub_category=None,difficulty=None,flag=None,name=None):
+        # TODO: Check for good type
+        self.category = category
+        self.sub_category = sub_category
+        self.difficulty = difficulty
+        self.flag = flag
+        self.name = name
 
 
-if __name__ == '__main__':
-    main()
+    """
+    __str__(): overwrite class.to_string()
+    """
+    def __str__(self):
+        return """=-= Challenge {} =-=
+        - Category: {}
+        - Sub-category: {}
+        - Difficulty: {}
+        - Flag: {}""".format(
+                self.name,
+                self.category,
+                self.sub_category,
+                self.difficulty,
+                self.flag)
+
+
+    """
+    generate(): generate challenge according to category, difficulty and output path
+    """
+    def generate(self):
+        print(self)
+        return 0
