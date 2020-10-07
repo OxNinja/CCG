@@ -1,6 +1,6 @@
 # CTF Challenge Generator (CCG)
 
-![Logo](https://github.com/OxNinja/CCG/tree/master/static/logo.png)
+![Logo](https://raw.githubusercontent.com/OxNinja/CCG/master/static/logo.png)
 
 This package generates CTF challenges according to user-provided options, such as category, difficulty, custom flag...
 CCG creates either:
