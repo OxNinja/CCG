@@ -131,6 +131,26 @@ class Challenge:
 
 
 	"""
+	Challenge.set_category(category, sub_category):
+		Modify a challenge's category and sub-category, then checks if it is okay
+	"""
+	def set_category(self, category, sub_category):
+		self.category = category
+		self.sub_category = sub_category
+		self.check()
+
+
+	"""
+	Challenge.random_category():
+		Modfify a challenge's category and sub-category for a random correct value
+	"""
+	def random_category(self):
+		r_category = random.randrange(len(CATEGORIES))
+		r_sub_category = random.randrange(len(list(CATEGORIES.values())[r_category]))
+		self.set_category(list(CATEGORIES.keys())[r_category], list(CATEGORIES.values())[r_category][r_sub_category])
+
+
+	"""
 	Challenge.generate(): generate challenge according to category, difficulty and output path
 	"""
 	def generate(self):
