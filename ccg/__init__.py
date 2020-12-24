@@ -25,8 +25,13 @@ Functions
 
 
 def gen_id(a, b):
-    """
-    gen_id(a, b): returns an md5 hash created with two initializers parameters (text + salt)
+    """Returns an md5 hash created with two initializers parameters (text + salt).
+        :param a: By default the name of a challenge we want to generate an id for
+        :type a: str or None
+        :param b: By default the flag of the challenge we want to generate an id for
+        :type b: str
+        :return: A string in the form of an md5 hash
+        :rtype: str
     """
     text = str(time.time())
     # TODO: check types of a and b
@@ -44,8 +49,11 @@ def gen_id(a, b):
 
 
 def gen_flag(flag=None):
-    """
-    gen_flag(): returns a generated flag containing given string, or random hex value
+    """Returns a generated flag containing given string, or random hex value.
+        :param flag: The flag you want to use for a challenge, or let the programm generate one for you, defaults to None
+        :type flag: str
+        :return: The flag of the challenge according to both global variables `FLAG_FORMAT` and `FLAG_FORMAT_FLAG`
+        :rtype: str
     """
     global FLAG_FORMAT
     global FLAG_FORMAT_FLAG
@@ -60,27 +68,23 @@ Classes
 
 
 class CCGError(Exception):
-    """
-    Errors class:
-            Print errors according to CCG
+    """Prints custom error according to CCG.
+        :param problem: The content of the problem encoutered during execution
+        :type problem: str
     """
 
     def __init__(self, problem):
-        """
-        CCGError.__init__(problem): calls an exception with custom text when raised
+        """Constructor method
         """
         super().__init__(f"[CCG] An error occured: {problem}")
 
 
 class Categories:
-    """
-    Categories class:
-            Initialize categories and corresponding sub-categories, add sub-categories and categories on the fly
+    """Initializes categories and corresponding sub-categories.
     """
 
     def __init__(self):
-        """
-        Categories.__init__(): initialize default values for categories
+        """Constructor method
         """
         self.categories = {
             'crypto': ['base64', 'rsa'],
@@ -89,22 +93,28 @@ class Categories:
         }
 
     def __str__(self):
-        """
-        Categories.__str__(): overwrite class.to_string()
+        """String method
         """
         return self.categories
 
 
 class Challenge:
+    """Initializes a challenge, set corresponding variables (`flag`, `difficulty`, `category`...), check things and generate challenge.
+        :param category: The wanted category of the challenge. Defaults to None
+        :type category: str
+        :param sub_category: The wanted sub-category of the challenge. Defaults to None
+        :type sub_category: str
+        :param difficulty: The wanted difficulty level of the challenge. Defaults to None
+        :type difficulty: int
+        :param flag: The wanted flag of the challenge. Defaults to None
+        :type flag: str, optional
+        :param name: The wanted name of the challenge, will be used later for referencing to a challenge using its name or id. Defaults to None
+        :type name: str, optional
     """
-    Challenge class:
-            Initialize challenge, set variables (flag, difficulty, category...), check things and generate challenge
-    """
+    # TODO: select a random sub-category if None and update the desc in docstring when done
 
     def __init__(self, category=None, sub_category=None, difficulty=None, flag=None, name=None):
-        """
-        Challenge.__init__(): initialize default values for challenge
-                User must update variable CATEGORIES before creating a challenge (ex: `CATEGORIES = Categories().categories`) if needed
+        """Constructor method
         """
         global CATEGORIES
         if not CATEGORIES:
@@ -121,8 +131,7 @@ class Challenge:
         self.check()
 
     def __str__(self):
-        """
-        Challenge.__str__(): overwrite class.to_string()
+        """String method
         """
         # TODO: better print for a challenge
         return f"""=-= SOC: {self.name} =-=
@@ -134,9 +143,8 @@ class Challenge:
 =-= EOC =-="""
 
     def check(self):
-        """
-        Challenge.check():
-                Checks if challenge is okay (ie. if category exists...)
+        """Checks if challenge is okay (ie. if category exists...)
+                :raises CCGError: A generic error type, with self-explaining details of the encoutered problem
         """
         global CATEGORIES
         # Check for category
@@ -149,19 +157,20 @@ class Challenge:
                 f"challenge's sub-category '{self.sub_category}' not found in category '{self.category}'")
 
     def set_category(self, category, sub_category):
-        """
-        Challenge.set_category(category, sub_category):
-                Modify a challenge's category and sub-category, then checks if it is okay
+        """Modify a challenge's category and sub-category, then checks if it is okay
+                :param category: The target category for the challenge
+                :type category: str
+                :param sub_category: The terget sub-category for the challenge
+                :type sub_category: str
         """
         self.category = category
         self.sub_category = sub_category
         self.check()
 
     def random_category(self):
+        """Modfify a challenge's category and sub-category for a random correct value according to the global variable `CATEGORIES`
         """
-        Challenge.random_category():
-                Modfify a challenge's category and sub-category for a random correct value
-        """
+        global CATEGORIES
         r_category = random.randrange(len(CATEGORIES))
         r_sub_category = random.randrange(
             len(list(CATEGORIES.values())[r_category]))
@@ -169,8 +178,7 @@ class Challenge:
             CATEGORIES.values())[r_category][r_sub_category])
 
     def generate(self):
-        """
-        Challenge.generate(): generate challenge according to category, difficulty and output path
+        """Generates challenge according to category, difficulty and output path
         """
         # TODO: generate a challenge: call the right function in Challenges.py script according to challenge's sub_category
         print(self)
