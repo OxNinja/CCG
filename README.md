@@ -32,34 +32,47 @@ You should take a look at the [test.py](https://github.com/OxNinja/CCG/blob/mast
 
 ### Basic usage
 
-```py
-import ccg
+```
+$ ccg new my-challenge
 
-my_challenge = ccg.Challenge(
- category="web",
- sub_category="ssti",
- difficulty=1,
- flag="my_super_flag",
- name="my_first_web_challenge")
+$ ccg new my-challenge --flag=mY_sUpeR_fl4G --category=web --difficulty=2
+
+$ ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
 ```
 
 ### Custom categories
 
+Add your custom category to the models:
+
 ```py
-import ccg
-
-ccg.CATEGORIES = {
- "my_cat": ["sub_cat1", "sub_cat2"],
- "web": ["xxe", "any_sub_cat"]
+# /ccg/models/category.py
+CATEGORIES = {
+    ...
+    "custom_category": ["my_category", "other_category"],
+    ...
 }
+```
 
-my_challenge = ccg.Challenge(
- category="my_cat",
- sub_category="sub_cat_1",
- difficulty=1,
- flag="my_super_flag",
- name="my_challenge_in_custom_category"
-)
+Create your own class for your category:
+
+```py
+# /ccg/category/my_category.py
+from ccg.challenge.challenge import Challenge
+from ccg.models import DIFFICULTIES
+
+class MyCategory(ChallengeCategory):
+    # We don't want easy nor hard challenges
+    ACCEPTABLE_DIFFICULTY = list(DIFFICULTIES.keys()).remove(3).remove(1)
+
+    @classmethod
+    def generate(cls, challenge: Challenge) -> None:
+        # Your own code for your category here
+```
+
+Use it with CCG:
+
+```
+$ ccg new custom-chall -c custom_category -s my_category
 ```
 
 ## FAQ

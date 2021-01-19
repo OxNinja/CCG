@@ -1,0 +1,2 @@
+class ChallengeEncoding(Category):
+    
