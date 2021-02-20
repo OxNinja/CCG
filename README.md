@@ -26,18 +26,40 @@ CCG creates a directory for each challenge at `OUTPUT_DIR/{name}_{id}` containin
 
   The challenge's configuration in a docker-compose file, for dev testing
 
+## Dependancies
+
+* Python 3.8
+* pip
+* pipenv
+
+## Install
+
+```sh
+$ git clone https://github.com/OxNinja/CCG.git
+
+$ cd ccg
+
+$ pipenv shell
+
+(pipenv) $ pipenv install
+
+(pipenv) $ pip3 install -e .
+
+done!
+```
+
 ## How to use
 
 You should take a look at the [test.py](https://github.com/OxNinja/CCG/blob/master/test.py) file, you will find a ton of use cases :blush:
 
 ### Basic usage
 
-```
-$ ccg new my-challenge
+```sh
+ccg new my-challenge
 
-$ ccg new my-challenge --flag=mY_sUpeR_fl4G --category=web --difficulty=2
+ccg new my-challenge --flag=mY_sUpeR_fl4G --category=web --difficulty=2
 
-$ ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
+ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
 ```
 
 ### Custom categories
@@ -71,8 +93,8 @@ class MyCategory(ChallengeCategory):
 
 Use it with CCG:
 
-```
-$ ccg new custom-chall -c custom_category -s my_category
+```sh
+ccg new custom-chall -c custom_category -s my_category
 ```
 
 ## FAQ
