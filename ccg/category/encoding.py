@@ -1,6 +1,8 @@
 from base64 import b64encode
+from os import mkdir
 from os.path import join
 from random import randint
+import sys
 
 from ccg.category.category import ChallengeCategory
 from ccg.challenge.challenge import Challenge
@@ -13,7 +15,7 @@ class ChallengeEncoding(ChallengeCategory):
     """
 
     # Encoding challenge can only be of difficulty 'easy'
-    ACCEPTABLE_DIFFICULTY = list(DIFFICULTIES[EASY])
+    ACCEPTABLE_DIFFICULTY = DIFFICULTIES[EASY]
 
     @classmethod
     def generate(cls, challenge: Challenge) -> None:
@@ -29,7 +31,7 @@ class ChallengeEncoding(ChallengeCategory):
         if choice == 'bin':
             tmp = ''
             for char in flag:
-                char = bin(char)[2:]
+                char = bin(ord(char))[2:]
                 tmp += f"{char} "
             flag = tmp[:-1]
             print("Binary encoding challenge")
@@ -51,4 +53,8 @@ class ChallengeEncoding(ChallengeCategory):
             print("Decimal encoding challenge")
 
         # Write the encoded flag in the output file
-        file_write(flag, join(challenge.path, "challenge.txt"))
+        try:
+            mkdir(challenge.path)
+            file_write(flag, join(challenge.path, "challenge.txt"))
+        except Exception:
+            sys.exit(1)

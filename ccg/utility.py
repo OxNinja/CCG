@@ -1,5 +1,4 @@
 import string
-import sys
 import validators
 from os.path import exists, isfile
 
@@ -17,8 +16,8 @@ def is_slug(text: str) -> bool:
     return True
 
 
-def rot_n(string: str, shift: int) -> str:
-    """Shifts the given string by an amount of `shift` characters (see rot13 or rot26 for example)
+def rot_n(cleartext: str, shift: int) -> str:
+    """Shifts the given cleartext by an amount of `shift` characters (see rot13 or rot26 for example)
 
     :param string: The string to shift
     :param shift: The amount to shift the given string
@@ -26,7 +25,7 @@ def rot_n(string: str, shift: int) -> str:
     upper = string.ascii_uppercase
     lower = string.ascii_lowercase
     result = ''
-    for char in string:
+    for char in cleartext:
         if char in upper:
             result += upper[(upper.index(char) + shift) % len(upper)]
         elif char in lower:

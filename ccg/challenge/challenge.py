@@ -1,3 +1,4 @@
+from importlib import import_module
 from os.path import join
 
 
@@ -41,3 +42,8 @@ class Challenge():
     def generate(self):
         """Generates the challenge, ie. generates the corresponding source code, files, Dockerfile...
         """
+        # Get the class of the category
+        module = import_module(f"ccg.category.{self.sub_category}")
+        class_name = f"Challenge{self.sub_category.capitalize()}"
+        # Call the `generate()` method of the class to generate the challenge
+        getattr(module, class_name).generating(self)

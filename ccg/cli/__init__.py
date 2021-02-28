@@ -67,8 +67,7 @@ def new(name, flag, category, sub_category, difficulty, outdir, points):
         chall = Challenge(name=name, flag=flag, category=category,
                           sub_category=sub_category, difficulty=difficulty, path=outdir, points=points)
         # Generating the challenge within a nice wrapper
-        # TODO: declare which category corresponds to which class in order to generate the chall
-        # chall.sub_category.generating(chall)
+        chall.generate()
 
         spinner.text = f"Challenge '{chall.name}' sucessfully created!"
         spinner.ok(SPIN_OK)

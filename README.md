@@ -80,12 +80,8 @@ Create your own class for your category:
 ```py
 # /ccg/category/my_category.py
 from ccg.challenge.challenge import Challenge
-from ccg.models import DIFFICULTIES
 
 class MyCategory(ChallengeCategory):
-    # We don't want easy nor hard challenges
-    ACCEPTABLE_DIFFICULTY = list(DIFFICULTIES.keys()).remove(3).remove(1)
-
     @classmethod
     def generate(cls, challenge: Challenge) -> None:
         # Your own code for your category here

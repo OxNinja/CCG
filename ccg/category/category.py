@@ -20,12 +20,13 @@ class ChallengeCategory:
 
         :param challenge: The challenge to generate
         """
+        print(challenge.difficulty, cls.ACCEPTABLE_DIFFICULTY)
         with yaspin(Spinners.line, text=f"[{challenge.name}] Generating files...") as spinner:
-            # Check if difficulty is acceptable
-            if challenge.difficulty not in cls.ACCEPTABLE_DIFFICULTY:
-                spinner.text = f"Difficulty '{challenge.difficulty}' is not accepted by the category '{challenge.sub_category}' ({challenge.category})"
-                spinner.fail(SPIN_FAIL)
-                sys.exit(1)
+            # TODO: Check if difficulty is acceptable
+            # if challenge.difficulty not in cls.ACCEPTABLE_DIFFICULTY:
+            #    spinner.text = f"Difficulty '{challenge.difficulty}' is not accepted by the category '{challenge.sub_category}' ({challenge.category})"
+            #    spinner.fail(SPIN_FAIL)
+            #    sys.exit(1)
 
             # Actually generating the challenge
             cls.generate(challenge)
