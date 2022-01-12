@@ -20,6 +20,7 @@ PKG_ENTRY = """
 PKG_DEP = [
     "Click",
     "yaspin",
+    "python-slugify",
 ]
 
 with open("README.md", "r") as fh:

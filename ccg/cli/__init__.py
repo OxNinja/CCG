@@ -16,9 +16,10 @@ def cli():
 @click.option("-s", "--sub-category", "sub_category")
 @click.option("-d", "--difficulty", "difficulty")
 @click.option("-f", "--flag", "flag")
-@click.option("-p", "--points", "points")
+@click.option("-p", "--points", "points", type=int)
 @click.option("-o", "--out", "out")
-def new(name, category, description, sub_category, difficulty, flag, points, out):
+@click.option("-i", "--files", "files")
+def new(name, category, description, sub_category, difficulty, flag, points, out, files):
     if name is None: # prevent default name
         name = "Unnamed" # TODO: use a random name instead
 
@@ -32,8 +33,10 @@ def new(name, category, description, sub_category, difficulty, flag, points, out
             difficulty=difficulty,
             flag=flag,
             points=points,
-            out=out)
+            out=out,
+            files=files)
         spinner.write(challenge)
+        challenge.generate()
 
         spinner.text = "Challenge created!"
         spinner.ok(CLI.ok)

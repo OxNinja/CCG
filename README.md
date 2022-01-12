@@ -2,7 +2,7 @@
 
 ![Logo](static/logo.png)
 
-This package generates CTF challenges according to user-provided options, such as category, difficulty, custom flag...
+This package generates CTF challenges compatible with [CTF Kit](https://github.com/Team-FakeNews/CTFKit), according to user-provided options such as category, difficulty, custom flag...
 
 ## Install
 
