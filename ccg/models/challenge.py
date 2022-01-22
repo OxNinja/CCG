@@ -3,7 +3,9 @@ from os.path import isdir, join
 from slugify import slugify
 from tempfile import gettempdir
 from time import time
-from yaml import dump as yaml_dump
+
+from ccg.models.challenge_config import ChallengeConfig
+
 
 class Challenge:
     def __init__(self, name, description, category, sub_category, difficulty, flag, points, out, files):
@@ -39,33 +41,8 @@ class Challenge:
             # prevent overwriting existing challenge
             if not isdir(output_path):
                 makedirs(output_path)
-                """
-                name: chall
-                description: blablabla
-                points: 10
-                category: pwn
-                author: 0xLaPoutre
-                files:
-                - chall.jpg
-                containers:
-                - image: nginx:latest
-                    ports:
-                    - proto: TCP
-                        port: 80
-                    - proto: UDP
-                        port: 31337
-                """
-                challenge_config = {
-                    "name": self.name,
-                    "description": self.description,
-                    "points": self.points,
-                    "category": self.category,
-                    "author": "CCG",
-                    "files": self.files
-                }
-                with open(join(output_path, "challenge.yml"), 'w') as file:
-                    yaml_content = yaml_dump(challenge_config)
-                    file.write(yaml_content)
+                challenge_config = ChallengeConfig(name=self.name, description=self.description, points=self.points, category=self.category, sub_category=self.sub_category, author="CCG", files=self.files)
+                challenge_config.generate_file(join(output_path, "challenge.yml"))
             else:
                 self.log(f"'{output_path}' already existing, exiting.")
                 
