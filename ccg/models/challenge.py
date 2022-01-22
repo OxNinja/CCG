@@ -1,5 +1,6 @@
 from os import makedirs
 from os.path import isdir, join
+from random import randrange
 from slugify import slugify
 from tempfile import gettempdir
 from time import time
@@ -16,7 +17,10 @@ class Challenge:
         self.category = category
         self.sub_category = sub_category
         self.difficulty = difficulty
-        self.flag = flag
+        if flag is not None:
+            self.flag = flag
+        else:
+            self.flag = str(hex(randrange(0x100000000000, 0xffffffffffff)))[2:] # random hex value of 12 chars
         self.points = points
         self.files = files
         # setup challenge output directory
@@ -37,20 +41,25 @@ class Challenge:
     def generate(self):
         # create file structure
         try:
-            output_path = join(self.out, self.id)
+            self.out = join(self.out, self.id)
             # prevent overwriting existing challenge
-            if not isdir(output_path):
-                makedirs(output_path)
+            if not isdir(self.out):
+                makedirs(self.out)
+
+                # create challenge.yml
                 challenge_config = ChallengeConfig(name=self.name, description=self.description, points=self.points, category=self.category, sub_category=self.sub_category, author="CCG", files=self.files)
-                challenge_config.generate_file(join(output_path, "challenge.yml"))
+                challenge_config.generate_file(join(self.out, "challenge.yml"))
+
+                # create flag
+                with open(join(self.out, "flag.txt"), "w") as file:
+                    file.write(self.flag)
+
             else:
-                self.log(f"'{output_path}' already existing, exiting.")
+                self.log(f"'{self.out}' already existing, exiting.")
                 
         except Exception as err:
             self.log(f"error -> {err}")
 
-        # create challenge.yml
-        # create flag
         # create Dockerfile or docker-compose.yml
         # create src/
         

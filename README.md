@@ -25,9 +25,9 @@ pip install ccg
 
 ### Basic usage
 
-`ccg new challenge --category web`
+`ccg new "My web challenge" --category web`
 
-`ccg new challenge --category web --subcategory xss --flag c0ngr4tz_y0u_foUNd_1t --difficulty medium --name My-XSS-1 --points 100`
+`ccg new "My XSS 1" --category web --subcategory xss --flag c0ngr4tz_y0u_foUNd_1t --difficulty medium --points 100`
 
 ## FAQ
 

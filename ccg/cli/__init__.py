@@ -12,7 +12,7 @@ def cli():
 @cli.command()
 @click.argument("name", default=None)
 @click.option("-c", "--category", "category")
-@click.option("-d", "--description", "description")
+@click.option("--description", "description")
 @click.option("-s", "--sub-category", "sub_category")
 @click.option("-d", "--difficulty", "difficulty")
 @click.option("-f", "--flag", "flag")
@@ -38,5 +38,5 @@ def new(name, category, description, sub_category, difficulty, flag, points, out
         spinner.write(challenge)
         challenge.generate()
 
-        spinner.text = "Challenge created!"
+        spinner.text = f"Challenge created! ({challenge.out})"
         spinner.ok(CLI.ok)
