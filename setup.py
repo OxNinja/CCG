@@ -21,6 +21,7 @@ PKG_DEP = [
     "Click",
     "yaspin",
     "python-slugify",
+    "pyyaml",
 ]
 
 with open("README.md", "r") as fh:

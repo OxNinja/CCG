@@ -39,6 +39,10 @@ class Challenge:
         print(f"\r\n[LOG (challenge {self.name})] {message}")
 
     def generate(self):
+        """read category/ directory containing all the challenges generation methods
+        and call `self.category`.generate() method
+        this method can then be very custom and being able to generate a challenge.yml but also a Dockerfile if needed including the sources of the challenge
+        """
         # create file structure
         try:
             self.out = join(self.out, self.id)
