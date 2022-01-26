@@ -50,20 +50,10 @@ class Challenge:
             if not isdir(self.out):
                 makedirs(self.out)
 
-                # create challenge.yml
-                challenge_config = ChallengeConfig(name=self.name, description=self.description, points=self.points, category=self.category, sub_category=self.sub_category, author="CCG", files=self.files)
-                challenge_config.generate_file(join(self.out, "challenge.yml"))
-
-                # create flag
-                with open(join(self.out, "flag.txt"), "w") as file:
-                    file.write(self.flag)
+                # TODO: call challenge category generate method
 
             else:
                 self.log(f"'{self.out}' already existing, exiting.")
                 
         except Exception as err:
             self.log(f"error -> {err}")
-
-        # create Dockerfile or docker-compose.yml
-        # create src/
-        
