@@ -3,8 +3,9 @@ from ccg.models.challenge_config import ChallengeConfig
 
 
 class Category:
-    def __init__(self, challenge=None):
-        self.challenge = challenge
+    def __init__(self):
+        # nothing here, only static methods
+        pass
 
     @staticmethod
     def create_config(challenge):
