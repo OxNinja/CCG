@@ -1,10 +1,13 @@
+from os.path import join
+
 from ccg.models.challenge import Challenge
 from ccg.models.challenge_config import ChallengeConfig
 
 
 class Category:
-    def __init__(self, challenge=None):
-        self.challenge = challenge
+    def __init__(self):
+        # nothing here, only static methods
+        pass
 
     @staticmethod
     def create_config(challenge):
@@ -24,7 +27,7 @@ class Category:
 
     @staticmethod
     def create_flag(challenge):
-        """Create the flag file, overwriting if already existing
+        """Create the flag file (flag.txt), overwriting if already existing
         This file contains the flag (validation password) of the challenge
         """
         with open(join(challenge.out, "flag.txt"), "w") as file:
