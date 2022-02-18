@@ -21,13 +21,22 @@ pip install -e .
 pip install ccg
 ```
 
+## Dependancies
+
+* Python 3.10
+* pip
+
 ## How to use
 
 ### Basic usage
 
-`ccg new "My web challenge" --category web`
+```sh
+ccg new my-challenge
 
-`ccg new "My XSS 1" --category web --subcategory xss --flag c0ngr4tz_y0u_foUNd_1t --difficulty medium --points 100`
+ccg new my-challenge --flag=mY_sUpeR_fl4G --category=web --difficulty=2
+
+ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
+```
 
 ### Concept
 
