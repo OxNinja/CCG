@@ -2,55 +2,31 @@
 
 ![Logo](static/logo.png)
 
-This package generates CTF challenges according to user-provided options, such as category, difficulty, custom flag...
-
-CCG creates a directory for each challenge at `OUTPUT_DIR/{name}_{id}` containing:
-
-* `files/`:
-
-  Containing all challenge's output files
-
-* `src/` (optional):
-
-  Containing all challenge's source in order to build it
-
-* `challenge.yml`:
-
-  The challenge's configuration (ie. flag, description, name...)
-
-* `Dockerfile` (optional):
-
-  The challenge's configuration in a Dockerfile, for prod use
-
-* `docker-compose.yml` (optional):
-
-  The challenge's configuration in a docker-compose file, for dev testing
-
-## Dependancies
-
-* Python 3.8
-* pip
-* pipenv
+This package generates CTF challenges compatible with [CTF Kit](https://github.com/Team-FakeNews/CTFKit), according to user-provided options such as category, difficulty, custom flag...
 
 ## Install
 
+### From source
+
+> Use `https://github.com/OxNinja/CCG/tree/develop` for latest features (unstable)
+
 ```sh
-$ git clone https://github.com/OxNinja/CCG.git
-
-$ cd ccg
-
-$ pipenv shell
-
-(pipenv) $ pipenv install
-
-(pipenv) $ pip3 install -e .
-
-done!
+git clone https://github.com/OxNinja/CCG && cd CCG
+pip install -e .
 ```
 
-## How to use
+### From PyPi package (not available for the moment)
 
-You should take a look at the [test.py](https://github.com/OxNinja/CCG/blob/master/test.py) file, you will find a ton of use cases :blush:
+```sh
+pip install ccg
+```
+
+## Dependancies
+
+* Python 3.10
+* pip
+
+## How to use
 
 ### Basic usage
 
@@ -62,43 +38,17 @@ ccg new my-challenge --flag=mY_sUpeR_fl4G --category=web --difficulty=2
 ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
 ```
 
-### Custom categories
+### Concept
 
-Add your custom category to the models:
-
-```py
-# /ccg/models/category.py
-CATEGORIES = {
-    ...
-    "custom_category": ["my_category", "other_category"],
-    ...
-}
-```
-
-Create your own class for your category:
-
-```py
-# /ccg/category/my_category.py
-from ccg.challenge.challenge import Challenge
-
-class MyCategory(ChallengeCategory):
-    @classmethod
-    def generate(cls, challenge: Challenge) -> None:
-        # Your own code for your category here
-```
-
-Use it with CCG:
-
-```sh
-ccg new custom-chall -c custom_category -s my_category
-```
+* Any challenge have an auto generated `challenge.yml` configuration file
+  > This file represents a challenge in a YAML format, this files is useful to get information about the challenge, for the CTF platform and for its deployment. This file is [compatible with CTF Kit](https://git.fakenews.sh/ctfkit/ctfkit).
+* Any challenge have a `flag.txt` validation file
+* If a challenge requires users to download files, they will be writen in `{challenge_path}/files/`
+* If a challenge requires sources, they will be stored in `{chalenge_path}/src/`
+  > The challenge will be run using its own `Dockerfile` or `docker-compose.yml` in a containerization context.
 
 ## FAQ
 
-### I like trains
+### I can't install CCG, what can I do?
 
-Yes of course
-
-### Other question
-
-No I don't
+Blame me and create a new question in the repository.

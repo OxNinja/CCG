@@ -12,11 +12,17 @@ PKG_CLASSIFIERS = [
    "License :: OSI Approved :: MIT License",
    "Operating System :: OS Independent"
 ]
-PKG_PYTHON_REQ = ">=3.6"
+PKG_PYTHON_REQ = ">=3.10"
 PKG_ENTRY = """
     [console_scripts]
     ccg=ccg.cli:cli
 """
+PKG_DEP = [
+    "Click",
+    "yaspin",
+    "python-slugify",
+    "pyyaml",
+]
 
 with open("README.md", "r") as fh:
     PKG_LONG_DESC = fh.read()
@@ -30,6 +36,7 @@ setuptools.setup(
     long_description=PKG_LONG_DESC,
     long_description_content_type=PKG_DESC_CON_TYPE,
     url=PKG_URL,
+    install_requires=PKG_DEP,
     packages=setuptools.find_packages(),
     classifiers=PKG_CLASSIFIERS,
     python_requires=PKG_PYTHON_REQ,
