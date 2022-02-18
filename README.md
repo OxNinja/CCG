@@ -2,72 +2,53 @@
 
 ![Logo](static/logo.png)
 
-This package generates CTF challenges according to user-provided options, such as category, difficulty, custom flag...
+This package generates CTF challenges compatible with [CTF Kit](https://github.com/Team-FakeNews/CTFKit), according to user-provided options such as category, difficulty, custom flag...
 
-CCG creates a directory for each challenge at `OUTPUT_DIR/{name}_{id}` containing:
+## Install
 
-* `files/`:
+### From source
 
-  Containing all challenge's output files
+> Use `https://github.com/OxNinja/CCG/tree/develop` for latest features (unstable)
 
-* `src/` (optional):
+```sh
+git clone https://github.com/OxNinja/CCG && cd CCG
+pip install -e .
+```
 
-  Containing all challenge's source in order to build it
+### From PyPi package (not available for the moment)
 
-* `challenge.yml`:
+```sh
+pip install ccg
+```
 
-  The challenge's configuration (ie. flag, description, name...)
+## Dependancies
 
-* `Dockerfile` (optional):
-
-  The challenge's configuration in a Dockerfile, for prod use
-
-* `docker-compose.yml` (optional):
-
-  The challenge's configuration in a docker-compose file, for dev testing
+* Python 3.10
+* pip
 
 ## How to use
 
-You should take a look at the [test.py](https://github.com/OxNinja/CCG/blob/master/test.py) file, you will find a ton of use cases :blush:
-
 ### Basic usage
 
-```py
-import ccg
+```sh
+ccg new my-challenge
 
-my_challenge = ccg.Challenge(
- category="web",
- sub_category="ssti",
- difficulty=1,
- flag="my_super_flag",
- name="my_first_web_challenge")
+ccg new my-challenge --flag=mY_sUpeR_fl4G --category=web --difficulty=2
+
+ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
 ```
 
-### Custom categories
+### Concept
 
-```py
-import ccg
-
-ccg.CATEGORIES = {
- "my_cat": ["sub_cat1", "sub_cat2"],
- "web": ["xxe", "any_sub_cat"]
-}
-
-my_challenge = ccg.Challenge(
- category="my_cat",
- sub_category="sub_cat_1",
- difficulty=1,
- flag="my_super_flag",
- name="my_challenge_in_custom_category"
-)
-```
+* Any challenge have an auto generated `challenge.yml` configuration file
+  > This file represents a challenge in a YAML format, this files is useful to get information about the challenge, for the CTF platform and for its deployment. This file is [compatible with CTF Kit](https://git.fakenews.sh/ctfkit/ctfkit).
+* Any challenge have a `flag.txt` validation file
+* If a challenge requires users to download files, they will be writen in `{challenge_path}/files/`
+* If a challenge requires sources, they will be stored in `{chalenge_path}/src/`
+  > The challenge will be run using its own `Dockerfile` or `docker-compose.yml` in a containerization context.
 
 ## FAQ
 
-### I like trains
+### I can't install CCG, what can I do?
 
-Yes of course
-
-### Other question
-
-No I don't
+Blame me and create a new question in the repository.
