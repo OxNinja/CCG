@@ -11,7 +11,6 @@ class ChallengeEncoding(Category):
         basic encoding (base 2, 16, 32, 64, rot13...)
         the challenge is generated into a file named `{challenge.name}.txt` in the `./files/` folder
     """
-
     def __init__(self):
         pass
 
