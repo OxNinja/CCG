@@ -12,7 +12,7 @@ PKG_CLASSIFIERS = [
    "License :: OSI Approved :: MIT License",
    "Operating System :: OS Independent"
 ]
-PKG_PYTHON_REQ = ">=3.6"
+PKG_PYTHON_REQ = ">=3.10"
 PKG_ENTRY = """
     [console_scripts]
     ccg=ccg.cli:cli

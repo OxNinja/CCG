@@ -35,8 +35,10 @@ def new(name, category, description, sub_category, difficulty, flag, points, out
             points=points,
             out=out,
             files=files)
-        spinner.write(challenge)
-        challenge.generate()
 
-        spinner.text = f"Challenge created! ({challenge.out})"
-        spinner.ok(CLI.ok)
+        if challenge.generate():
+            spinner.text = f"Challenge created! ({challenge.out})"
+            spinner.ok(CLI.ok)
+        else:
+            spinner.text = f"Challenge creation failed"
+            spinner.fail(CLI.fail)

@@ -8,6 +8,11 @@ from time import time
 
 from ccg.models.challenge_config import ChallengeConfig
 
+DIFFICULTIES = [
+        "easy",
+        "medium",
+        "hard"
+]
 
 class Challenge:
     def __init__(self, name, description, category, sub_category, difficulty, flag, points, out, files):
@@ -36,8 +41,11 @@ class Challenge:
     {self.flag}
     {self.out}"""
 
-    def log(self, message):
-        print(f"\r\n[LOG (challenge {self.name})] {message}")
+    def log(self, message, is_error=False):
+        if is_error:
+            print(f"\r\n[ERROR (challenge {self.name})] {message}")
+        else:
+            print(f"\r\n[LOG (challenge {self.name})] {message}")
 
     def generate(self):
         """read categories/ directory containing all the challenges generation methods
@@ -60,9 +68,12 @@ class Challenge:
                 # generate the challenge using the custom method of this category
                 challenge_class = getattr(module, class_name)
                 challenge_class.generate(self)
+                return True
 
             else:
                 self.log(f"'{self.out}' already existing, exiting.")
+                return False
                 
         except Exception as err:
-            self.log(f"error -> {err}")
+            self.log(err, is_error=True)
+            return False
