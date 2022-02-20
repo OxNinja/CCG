@@ -9,7 +9,7 @@ function connect_db(){
 }
 
 function fetch_article($db, $q){
-  $r = $db->query($query);
+  $r = $db->query($q);
   $db->close();
 
   if($r->num_rows > 0){

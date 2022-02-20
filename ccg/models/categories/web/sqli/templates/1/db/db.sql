@@ -23,5 +23,5 @@ create table `database`.`users` (
 );
 
 insert into `database`.`users` (username, password) values
-	("admin","$FLAG$"),
+	("admin","$FLAG"),
 	("john","password");

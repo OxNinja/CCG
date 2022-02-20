@@ -18,7 +18,7 @@ require_once("includes/functions.php");
 
   if(isset($_GET['id']) && !is_null($_GET['id'])) {
     $q = $_GET['id'];
-    $q = "select title, content from articles where id='$id'";
+    $q = "select title, content from articles where id='$q'";
     fetch_article($db, $q);
   } else {
     echo("Welcome to my blog!");
