@@ -47,6 +47,13 @@ ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
 * If a challenge requires sources, they will be stored in `{chalenge_path}/src/`
   > The challenge will be run using its own `Dockerfile` or `docker-compose.yml` in a containerization context.
 
+## Supported challenge categories
+
+> Check https://github.com/OxNinja/CCG/tree/master/ccg/models/categories for a complete list
+
+* **Crypto**
+    * Encoding (base64, hex, binary)
+
 ## FAQ
 
 ### I can't install CCG, what can I do?
