@@ -1,12 +1,13 @@
 import setuptools
 
 PKG_NAME = "ccg"
-PKG_VERSION = "0.0.1"
+with open("ccg/version", "r") as file:
+    PKG_VERSION = file.readline()
 PKG_AUTHOR = "0xNinja"
 PKG_AUTHOR_EMAIL = "author@example.com"
 PKG_DESC = "CCG - CTF Challenge Generator"
 PKG_DESC_CON_TYPE = "text/markdown"
-PKG_URL = "https://nephael.net"
+PKG_URL = "https://0xninja.fr"
 PKG_CLASSIFIERS = [
    "Programming Language :: Python :: 3",
    "License :: OSI Approved :: MIT License",

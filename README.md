@@ -52,6 +52,11 @@ ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
 * [x] Crypto
     * [x] Encodings (basics)
 
+## Working on
+
+* Web template for Docker
+* SQLi challenge template
+
 ## FAQ
 
 ### I can't install CCG, what can I do?

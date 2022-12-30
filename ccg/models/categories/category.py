@@ -1,3 +1,7 @@
+""" Template file for a challenge category
+Just copy/paste it to start a new category
+"""
+
 from os.path import join
 
 from ccg.models.challenge import Challenge
