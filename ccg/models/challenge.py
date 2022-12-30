@@ -8,6 +8,7 @@ from time import time
 
 from ccg.models.challenge_config import ChallengeConfig
 
+# the possible difficulties of a challenge
 DIFFICULTIES = [
         "easy",
         "medium",

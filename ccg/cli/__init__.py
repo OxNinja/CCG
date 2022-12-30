@@ -9,6 +9,18 @@ def cli():
     pass
 
 
+""" --version argument, shows the version of CCG
+"""
+@click.group()
+@click.version_option()
+@click.pass_context
+def cli(ctx):
+    pass
+
+
+
+""" new command, create a new challenge
+"""
 @cli.command()
 @click.argument("name", default=None)
 @click.option("-c", "--category", "category")
