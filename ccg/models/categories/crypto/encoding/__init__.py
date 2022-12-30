@@ -1,4 +1,5 @@
 from base64 import b64encode as b64e
+from codecs import encode as codecs_encode
 from os import makedirs
 from os.path import join
 from random import randint
@@ -24,7 +25,8 @@ class ChallengeEncoding(Category):
         if challenge.difficulty == DIFFICULTIES[0]: # easy challenge
             # choose encoding
             # for the moment this is bad code but one day it will be better
-            r = randint(0, 2) # 3 types
+            encodings = ["binary", "hex", "base64", "rot13"]
+            r = randint(0, len(encodings) - 1)
             match r:
                 case 0: # binary
                     encoded = " ".join([bin(ord(x))[2:].zfill(7) for x in challenge.flag])
@@ -35,6 +37,9 @@ class ChallengeEncoding(Category):
                 case 2: # base64
                     encoded = b64e(challenge.flag.encode()).decode()
                     challenge.log("base64 encoding")
+                case 3: # rot13
+                    encoded = codecs_encode(challenge.flag, "rot_13")
+                    challenge.log("rot13 encoding")
                 case _:
                     raise Exception("error occured during the challenge generation process (ChallengeEncoding.generate())")
             challenge_file = f"{challenge.name}.txt"
@@ -51,9 +56,9 @@ class ChallengeEncoding(Category):
             challenge_files_dir = join(challenge.out, "files")
             makedirs(challenge_files_dir)
 
+            # write challenge in the output file
             with open(join(challenge_files_dir, challenge_file), 'w+') as file:
                 file.write(encoded)
             
         else: # bad difficulty input
             raise Exception(f"the choosen difficulty ({challenge.difficulty}) is not compatible with the current category ({challenge.sub_category})")
-

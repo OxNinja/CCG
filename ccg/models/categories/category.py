@@ -1,5 +1,5 @@
 """ Template file for a challenge category
-Just copy/paste it to start a new category
+Just override the generate() method in a new class implementing this one to create a new category
 """
 
 from os.path import join

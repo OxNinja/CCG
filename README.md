@@ -23,7 +23,7 @@ pip install ccg
 
 ## Dependancies
 
-* Python 3.10
+* Python 3.10 or above
 * pip
 
 ## How to use
@@ -33,9 +33,9 @@ pip install ccg
 ```sh
 ccg new my-challenge
 
-ccg new my-challenge --flag=mY_sUpeR_fl4G --category=web --difficulty=2
+ccg new my-challenge --flag=mY_sUpeR_fl4G --category=web --difficulty=medium
 
-ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
+ccg new -f mY_sUpeR_fl4G -c web -s ssti -d easy
 ```
 
 ### Concept
@@ -54,6 +54,7 @@ ccg new -f mY_sUpeR_fl4G -c web -s ssti -d 1
 
 ## Working on
 
+* Selecting a random valid challenge category when possible
 * Web template for Docker
 * SQLi challenge template
 
