@@ -57,6 +57,8 @@ ccg new -f mY_sUpeR_fl4G -c web -s ssti -d easy
 * Selecting a random valid challenge category when possible
 * Web template for Docker
 * SQLi challenge template
+* Basic static reverse challenges
+* Refacto of the "selecting a random type of sub-category or challenge" part (doing a `utils.py` may help?)
 
 ## FAQ
 
