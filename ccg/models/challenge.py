@@ -29,7 +29,7 @@ class Challenge:
         else:
             self.flag = str(hex(randrange(0x100000000000, 0xffffffffffff)))[2:] # random hex value of 12 chars, faster than a hash generation
         self.points = points
-        self.files = files
+        self.files = files if files is not None else []
         # setup challenge output directory
         if out is not None and isdir(out):
             self.out = out
@@ -39,8 +39,9 @@ class Challenge:
  
     def __repr__(self):
         return f"""{self.name} ({self.difficulty}: {self.points}) [{self.category}, {self.sub_category}]
-    {self.flag}
-    {self.out}"""
+    flag: {self.flag}
+    output: {self.out}
+    files: {self.files}"""
 
     def log(self, message, is_error=False):
         if is_error:

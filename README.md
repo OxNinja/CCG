@@ -51,6 +51,10 @@ ccg new -f mY_sUpeR_fl4G -c web -s ssti -d easy
 
 * [x] Crypto
     * [x] Encodings (basics)
+* [x] Reverse
+    * [x] Code audit (basics)
+* [x] Web
+    * [x] SQLi (basic)
 
 ## Working on
 
@@ -58,7 +62,7 @@ ccg new -f mY_sUpeR_fl4G -c web -s ssti -d easy
 * Web template for Docker
 * SQLi challenge template
 * Basic static reverse challenges
-* Refacto of the "selecting a random type of sub-category or challenge" part (doing a `utils.py` may help?)
+* Refacto of the "selecting a random type of sub-category or challenge" part (creating a `utils.py` may help?)
 
 ## FAQ
 
